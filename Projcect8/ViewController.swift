@@ -137,7 +137,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadLevel()
+        
+        //Project9 challenge: Move load level to background thread
+        performSelector(inBackground: #selector(loadLevel), with: nil)
+       // loadLevel()
     }
 
     @objc func letterTapped(_ sender: UIButton) {
@@ -211,7 +214,7 @@ class ViewController: UIViewController {
         activatedButtons.removeAll()
     }
     
-    func loadLevel() {
+    @objc func loadLevel() {
         var clueString = ""
         var solutionsString = ""
         var letterBits = [String]()
@@ -237,17 +240,20 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
-        cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
-        answersLabel.text = solutionsString.trimmingCharacters(in: .whitespacesAndNewlines)
-        wordsRemaining = 7
-        letterButtons.shuffle()
-        
-        if letterButtons.count == letterBits.count {
-            for i in 0..<letterButtons.count {
-                letterButtons[i].setTitle(letterBits[i], for: .normal)
+        //Project 9 Challenge: I had to use weak capturing for this closure to prevent a strong capture cycle/ mempry leak
+        DispatchQueue.main.async { [weak self] in
+            self?.cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
+            self?.answersLabel.text = solutionsString.trimmingCharacters(in: .whitespacesAndNewlines)
+            self?.wordsRemaining = 7
+            self?.letterButtons.shuffle()
+            
+            if self?.letterButtons.count == letterBits.count {
+                for i in 0..<(self?.letterButtons.count)! {
+                    self?.letterButtons[i].setTitle(letterBits[i], for: .normal)
+                }
             }
         }
+
     }
 
 }
