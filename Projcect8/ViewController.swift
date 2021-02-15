@@ -22,6 +22,7 @@ class ViewController: UIViewController {
             scoreLabel.text = "Score: \(score)"
         }
     }
+    var wordsRemaining = 7
     var level = 1
     
     override func loadView() {
@@ -73,6 +74,11 @@ class ViewController: UIViewController {
         
         let buttonsView = UIView()
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        //gray line around the buttonsView
+        buttonsView.layer.borderWidth = 1
+        buttonsView.layer.borderColor = UIColor.lightGray.cgColor
+        //
+        
         view.addSubview(buttonsView)
         
         NSLayoutConstraint.activate([
@@ -105,7 +111,8 @@ class ViewController: UIViewController {
             buttonsView.heightAnchor.constraint(equalToConstant: 320),
             buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsView.topAnchor.constraint(equalTo: submit.bottomAnchor, constant: 20),
-            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
+            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
+
         ])
         
         let width = 150
@@ -137,6 +144,7 @@ class ViewController: UIViewController {
         guard let buttonTitle = sender.titleLabel?.text else {return}
         
         currentAnswer.text = currentAnswer.text?.appending(buttonTitle)
+        //print(currentAnswer.text)
         activatedButtons.append(sender)
         sender.isHidden = true
     }
@@ -153,18 +161,38 @@ class ViewController: UIViewController {
             
             currentAnswer.text = ""
             score += 1
-            
-            if score % 7 == 0 {
+            //Added a words remaining variable to count down when right answers are achieved. Right now it is based in a hard coded number. in the future, it would be better if it is tied to the size of the game file.
+            wordsRemaining -= 1
+            if wordsRemaining == 0 {
                 let ac = UIAlertController(title: "Well Done!", message: "Are you ready for the next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
+        } else {
+            //Added Alert controller to tell user of an incorrect guess or empty field
+            var message = ""
+            var title = ""
+            
+            if answerText == "" {
+                title = "No buttons tapped!"
+                message = "Please tap on some buttons to spell a word."
+            } else {
+                title = "Incorrect!"
+                message = "That is not one of the words, please try again."
+                if score > 0 {
+                    score -= 1
+                }
+            }
+            
+            let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+            //
         }
     }
     
     func levelUp(action: UIAlertAction) {
         level += 1
-        
         solutions.removeAll(keepingCapacity: true)
         loadLevel()
         
@@ -212,7 +240,7 @@ class ViewController: UIViewController {
         
         cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
         answersLabel.text = solutionsString.trimmingCharacters(in: .whitespacesAndNewlines)
-        
+        wordsRemaining = 7
         letterButtons.shuffle()
         
         if letterButtons.count == letterBits.count {

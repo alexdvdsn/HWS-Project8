@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F45F340325DAB5AA00F754BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F45F340225DAB5A900F754BB /* README.md */; };
 		F4D9A79625D8148F00D3AE7D /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4D9A79525D8148F00D3AE7D /* level1.txt */; };
 		F4D9AD5225D8179400AF08D3 /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4D9AD5125D8179400AF08D3 /* level2.txt */; };
 		F4DE0A8025D5FFE5002279F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE0A7F25D5FFE5002279F5 /* AppDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F45F340225DAB5A900F754BB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		F4D9A79525D8148F00D3AE7D /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = "<group>"; };
 		F4D9AD5125D8179400AF08D3 /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = "<group>"; };
 		F4DE0A7C25D5FFE5002279F5 /* Projcect8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Projcect8.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +69,7 @@
 				F4DE0A8825D5FFE6002279F5 /* Assets.xcassets */,
 				F4DE0A8A25D5FFE6002279F5 /* LaunchScreen.storyboard */,
 				F4DE0A8D25D5FFE6002279F5 /* Info.plist */,
+				F45F340225DAB5A900F754BB /* README.md */,
 				F4D9A79525D8148F00D3AE7D /* level1.txt */,
 				F4D9AD5125D8179400AF08D3 /* level2.txt */,
 			);
@@ -130,6 +133,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F45F340325DAB5AA00F754BB /* README.md in Resources */,
 				F4D9AD5225D8179400AF08D3 /* level2.txt in Resources */,
 				F4DE0A8C25D5FFE6002279F5 /* LaunchScreen.storyboard in Resources */,
 				F4D9A79625D8148F00D3AE7D /* level1.txt in Resources */,
